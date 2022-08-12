@@ -4,6 +4,7 @@ const subscriptionsUnitPrices = {
   firstRange: 299,
   secondRange: 239,
   thirthRange: 219,
+  lastRange: 149,
 };
 describe("Codelyber", () => {
   it("calculate right price first range one subscription", () => {
@@ -31,6 +32,13 @@ describe("Codelyber", () => {
     const priceCalculator = new PriceCalculator(11);
     expect(priceCalculator.getTotalPrice()).toBe(
       subscriptionsUnitPrices.thirthRange * 11
+    );
+  });
+
+  it("calculate right price last range 55 or more subscriptions", () => {
+    const priceCalculator = new PriceCalculator(55);
+    expect(priceCalculator.getTotalPrice()).toBe(
+      subscriptionsUnitPrices.lastRange * 55
     );
   });
 });
