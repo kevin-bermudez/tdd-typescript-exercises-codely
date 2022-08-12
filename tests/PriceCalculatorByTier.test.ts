@@ -13,4 +13,19 @@ describe("Price calculator by tier", () => {
       subscriptionsUnitPrices.firstRange
     );
   });
+
+  it("calculate right price first range two subscription", () => {
+    const priceCalculator = new PriceCalculatorByTier(2);
+    expect(priceCalculator.getTotalPrice()).toBe(
+      subscriptionsUnitPrices.firstRange * 2
+    );
+  });
+
+  it("calculate right price second and first range tree subscription", () => {
+    const priceCalculator = new PriceCalculatorByTier(3);
+    expect(priceCalculator.getTotalPrice()).toBe(
+      subscriptionsUnitPrices.firstRange * 2 +
+        subscriptionsUnitPrices.secondRange
+    );
+  });
 });
