@@ -4,8 +4,14 @@ const subscriptionsUnitPrices = {
   firstRange: 299,
   secondRange: 239,
   thirthRange: 219,
+  fourthRange: 199,
   lastRange: 149,
 };
+// 1-2	299 €
+// 3-10	239 €
+// 11-25	219 €
+// 26-50	199 €
+// 51+	149 €
 describe("Price calculator by tier", () => {
   it("calculate right price first range one subscription", () => {
     const priceCalculator = new PriceCalculatorByTier(1);
@@ -14,18 +20,27 @@ describe("Price calculator by tier", () => {
     );
   });
 
-  it("calculate right price first range two subscription", () => {
+  it("calculate right price first range two subscriptions", () => {
     const priceCalculator = new PriceCalculatorByTier(2);
     expect(priceCalculator.getTotalPrice()).toBe(
       subscriptionsUnitPrices.firstRange * 2
     );
   });
 
-  it("calculate right price second and first range tree subscription", () => {
+  it("calculate right price second and first range tree subscriptions", () => {
     const priceCalculator = new PriceCalculatorByTier(3);
     expect(priceCalculator.getTotalPrice()).toBe(
       subscriptionsUnitPrices.firstRange * 2 +
         subscriptionsUnitPrices.secondRange
+    );
+  });
+
+  it("calculate right price thirth and second and first range eleven subscriptions", () => {
+    const priceCalculator = new PriceCalculatorByTier(11);
+    expect(priceCalculator.getTotalPrice()).toBe(
+      subscriptionsUnitPrices.firstRange * 2 +
+        subscriptionsUnitPrices.secondRange * 8 +
+        subscriptionsUnitPrices.thirthRange
     );
   });
 });

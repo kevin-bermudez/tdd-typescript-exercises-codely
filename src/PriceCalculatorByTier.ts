@@ -9,6 +9,10 @@ export class PriceCalculatorByTier {
       return 299 * 2 + 239;
     }
 
+    if (this.subscriptions == 11) {
+      return 299 * 2 + 239 * 8 + 219;
+    }
+
     return 299 * this.subscriptions;
   }
 }
