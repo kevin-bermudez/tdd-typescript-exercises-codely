@@ -1,7 +1,11 @@
 export class PriceCalculator {
-  constructor(subscriptionsNumber : number){}
+  subscriptionsNumber: number;
 
-  getTotalPrice(){
-    return 299
+  constructor(subscriptionsNumber: number) {
+    this.subscriptionsNumber = subscriptionsNumber;
+  }
+
+  getTotalPrice(): number {
+    return 299 * this.subscriptionsNumber;
   }
 }
