@@ -5,7 +5,7 @@ const subscriptionsUnitPrices = {
   secondRange: 239,
   thirthRange: 219,
   fourthRange: 199,
-  lastRange: 149,
+  fithRange: 149,
 };
 // 1-2	299 €
 // 3-10	239 €
@@ -68,6 +68,17 @@ describe("Price calculator by tier", () => {
       subscriptionsUnitPrices.firstRange * 2 +
         subscriptionsUnitPrices.secondRange * 8 +
         subscriptionsUnitPrices.thirthRange * 2
+    );
+  });
+
+  it("calculate right price fifth and fourth and thirth and second and first range 51 subscriptions", () => {
+    const priceCalculator = new PriceCalculatorByTier(51);
+    expect(priceCalculator.getTotalPrice()).toBe(
+      subscriptionsUnitPrices.firstRange * 2 +
+        subscriptionsUnitPrices.secondRange * 8 +
+        subscriptionsUnitPrices.thirthRange * 15 +
+        subscriptionsUnitPrices.fourthRange * 25 +
+        subscriptionsUnitPrices.fithRange
     );
   });
 });

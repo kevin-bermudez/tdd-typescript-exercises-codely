@@ -5,6 +5,7 @@ export class PriceCalculatorByTier {
     second: 239,
     thirth: 219,
     fourth: 199,
+    fifth: 149,
   };
 
   constructor(subscriptions: number) {
@@ -15,6 +16,17 @@ export class PriceCalculatorByTier {
     const firstTier = this.tierPrices.first * 2;
     const secondTier = this.tierPrices.second * 8;
     const thirthTier = this.tierPrices.thirth * 15;
+    const fourthTier = this.tierPrices.fourth * 25;
+
+    if (this.subscriptions > 50) {
+      return (
+        firstTier +
+        secondTier +
+        thirthTier +
+        fourthTier +
+        this.tierPrices.fifth * (this.subscriptions - 50)
+      );
+    }
 
     if (this.subscriptions >= 26 && this.subscriptions <= 50) {
       return (
@@ -37,6 +49,8 @@ export class PriceCalculatorByTier {
       return firstTier + this.tierPrices.second * (this.subscriptions - 2);
     }
 
-    return 299 * this.subscriptions;
+    if (this.subscriptions >= 1 && this.subscriptions <= 2) {
+      return 299 * this.subscriptions;
+    }
   }
 }
