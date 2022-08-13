@@ -1,12 +1,13 @@
 export class PriceCalculatorByTier {
   subscriptions: number;
-  tierPrices = {
-    first: 299,
-    second: 239,
-    thirth: 219,
-    fourth: 199,
-    fifth: 149,
-  };
+
+  tierRangesList = [
+    { low: 51, price: 149 },
+    { low: 26, high: 50, price: 199 },
+    { low: 11, high: 25, price: 219 },
+    { low: 3, high: 10, price: 239 },
+    { low: 1, high: 2, price: 299 },
+  ];
 
   constructor(subscriptions: number) {
     this.subscriptions = subscriptions;
@@ -16,31 +17,19 @@ export class PriceCalculatorByTier {
     let totalPrice = 0,
       tmpSubscriptions = this.subscriptions;
 
-    if (this.subscriptions > 50) {
-      const subscriptionsInRange = tmpSubscriptions - 50;
-      totalPrice += subscriptionsInRange * this.tierPrices.fifth;
-      tmpSubscriptions -= subscriptionsInRange;
-    }
+    this.tierRangesList.forEach((tier) => {
+      if (
+        (tier.high &&
+          tmpSubscriptions >= tier.low &&
+          tmpSubscriptions <= tier.high) ||
+        (!tier.high && tmpSubscriptions >= tier.low)
+      ) {
+        const subscriptionsInRange = tmpSubscriptions - (tier.low - 1);
+        totalPrice += subscriptionsInRange * tier.price;
+        tmpSubscriptions -= subscriptionsInRange;
+      }
+    });
 
-    if (tmpSubscriptions >= 26 && tmpSubscriptions <= 50) {
-      const subscriptionsInRange = tmpSubscriptions - 25;
-      totalPrice += subscriptionsInRange * this.tierPrices.fourth;
-      tmpSubscriptions -= subscriptionsInRange;
-    }
-
-    if (tmpSubscriptions >= 11 && tmpSubscriptions <= 25) {
-      const subscriptionsInRange = tmpSubscriptions - 10;
-      totalPrice += subscriptionsInRange * this.tierPrices.thirth;
-      tmpSubscriptions -= subscriptionsInRange;
-    }
-
-    if (tmpSubscriptions >= 3 && tmpSubscriptions <= 10) {
-      const subscriptionsInRange = tmpSubscriptions - 2;
-      totalPrice += subscriptionsInRange * this.tierPrices.second;
-      tmpSubscriptions -= subscriptionsInRange;
-    }
-
-    totalPrice += this.tierPrices.first * tmpSubscriptions;
     return totalPrice;
   }
 }
