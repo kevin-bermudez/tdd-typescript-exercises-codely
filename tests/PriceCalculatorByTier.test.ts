@@ -53,4 +53,12 @@ describe("Price calculator by tier", () => {
         subscriptionsUnitPrices.fourthRange
     );
   });
+
+  it("calculate right price second and first range four subscriptions", () => {
+    const priceCalculator = new PriceCalculatorByTier(4);
+    expect(priceCalculator.getTotalPrice()).toBe(
+      subscriptionsUnitPrices.firstRange * 2 +
+        subscriptionsUnitPrices.secondRange * 2
+    );
+  });
 });
