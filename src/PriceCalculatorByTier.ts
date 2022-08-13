@@ -17,11 +17,20 @@ export class PriceCalculatorByTier {
     const thirthTier = this.tierPrices.thirth * 15;
 
     if (this.subscriptions >= 26 && this.subscriptions <= 50) {
-      return firstTier + secondTier + thirthTier + this.tierPrices.fourth;
+      return (
+        firstTier +
+        secondTier +
+        thirthTier +
+        this.tierPrices.fourth * (this.subscriptions - 25)
+      );
     }
 
     if (this.subscriptions >= 11 && this.subscriptions <= 25) {
-      return firstTier + secondTier + this.tierPrices.thirth;
+      return (
+        firstTier +
+        secondTier +
+        this.tierPrices.thirth * (this.subscriptions - 10)
+      );
     }
 
     if (this.subscriptions >= 3 && this.subscriptions <= 10) {
