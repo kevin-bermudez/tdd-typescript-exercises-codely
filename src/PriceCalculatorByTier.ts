@@ -13,44 +13,34 @@ export class PriceCalculatorByTier {
   }
 
   getTotalPrice(): number {
-    const firstTier = this.tierPrices.first * 2;
-    const secondTier = this.tierPrices.second * 8;
-    const thirthTier = this.tierPrices.thirth * 15;
-    const fourthTier = this.tierPrices.fourth * 25;
+    let totalPrice = 0,
+      tmpSubscriptions = this.subscriptions;
 
     if (this.subscriptions > 50) {
-      return (
-        firstTier +
-        secondTier +
-        thirthTier +
-        fourthTier +
-        this.tierPrices.fifth * (this.subscriptions - 50)
-      );
+      const subscriptionsInRange = tmpSubscriptions - 50;
+      totalPrice += subscriptionsInRange * this.tierPrices.fifth;
+      tmpSubscriptions -= subscriptionsInRange;
     }
 
-    if (this.subscriptions >= 26 && this.subscriptions <= 50) {
-      return (
-        firstTier +
-        secondTier +
-        thirthTier +
-        this.tierPrices.fourth * (this.subscriptions - 25)
-      );
+    if (tmpSubscriptions >= 26 && tmpSubscriptions <= 50) {
+      const subscriptionsInRange = tmpSubscriptions - 25;
+      totalPrice += subscriptionsInRange * this.tierPrices.fourth;
+      tmpSubscriptions -= subscriptionsInRange;
     }
 
-    if (this.subscriptions >= 11 && this.subscriptions <= 25) {
-      return (
-        firstTier +
-        secondTier +
-        this.tierPrices.thirth * (this.subscriptions - 10)
-      );
+    if (tmpSubscriptions >= 11 && tmpSubscriptions <= 25) {
+      const subscriptionsInRange = tmpSubscriptions - 10;
+      totalPrice += subscriptionsInRange * this.tierPrices.thirth;
+      tmpSubscriptions -= subscriptionsInRange;
     }
 
-    if (this.subscriptions >= 3 && this.subscriptions <= 10) {
-      return firstTier + this.tierPrices.second * (this.subscriptions - 2);
+    if (tmpSubscriptions >= 3 && tmpSubscriptions <= 10) {
+      const subscriptionsInRange = tmpSubscriptions - 2;
+      totalPrice += subscriptionsInRange * this.tierPrices.second;
+      tmpSubscriptions -= subscriptionsInRange;
     }
 
-    if (this.subscriptions >= 1 && this.subscriptions <= 2) {
-      return 299 * this.subscriptions;
-    }
+    totalPrice += this.tierPrices.first * tmpSubscriptions;
+    return totalPrice;
   }
 }
